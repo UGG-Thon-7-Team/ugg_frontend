@@ -4,6 +4,7 @@ import HomePage from '@pages/HomePage';
 import SearchPage from '@pages/SearchPage';
 import LibraryPage from '@pages/LibraryPage';
 import MainLayout from '@layouts/MainLayout';
+import CelebDetailPage from '../pages/CelebDetailPage';
 
 export default function Routes() {
   return (
@@ -13,6 +14,7 @@ export default function Routes() {
         <Route index={true} element={<HomePage />} />
         <Route path="search" element={<SearchPage />} />
         <Route path="library" element={<LibraryPage />} />
+        <Route path="celebdetail" element={<CelebDetailPage />} />
       </Route>
     </ReactRouters>
   );
