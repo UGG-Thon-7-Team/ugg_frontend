@@ -7,6 +7,8 @@ import MainLayout from '@layouts/MainLayout';
 import CelebDetailPage from '../pages/CelebDetailPage';
 import BookDetailPage from '../pages/BookDetailPage'
 import BuyPage1 from '../pages/BuyPage1'
+import BuyPage2 from '../pages/BuyPage2';
+import BuyPage3 from '../pages/BuyPage3';
 
 export default function Routes() {
   return (
@@ -19,6 +21,8 @@ export default function Routes() {
         <Route path="celebdetail" element={<CelebDetailPage />} />
         <Route path="bookdetail" element={<BookDetailPage />} />
         <Route path="buybook" element={<BuyPage1 />} />
+        <Route path="buybook2" element={<BuyPage2 />} />
+        <Route path="buybook3" element={<BuyPage3 />} />
       </Route>
     </ReactRouters>
   );

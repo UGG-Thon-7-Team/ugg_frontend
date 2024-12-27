@@ -15,8 +15,8 @@ export default function BuyPage1() {
                     <div>평점 4.2점</div>
                 </BookInfo>
                 <ButtonWrapper>
-                    <Button onClick={()=>navigate('/celebdetail')}>책도 필요해요</Button>
-                    <Button onClick={()=>navigate('/celebdetail')}>책은 필요없어요</Button>
+                    <Button onClick={()=>navigate('/buybook2')}>책도 필요해요</Button>
+                    <Button onClick={()=>navigate('/buybook3')}>책은 필요없어요</Button>
                 </ButtonWrapper>
             </Container>
           </>
