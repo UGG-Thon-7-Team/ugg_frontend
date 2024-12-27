@@ -18,11 +18,11 @@ export default function Routes() {
         <Route index={true} element={<HomePage />} />
         <Route path="search" element={<SearchPage />} />
         <Route path="library" element={<LibraryPage />} />
-        <Route path="celebdetail" element={<CelebDetailPage />} />
-        <Route path="bookdetail" element={<BookDetailPage />} />
-        <Route path="buybook" element={<BuyPage1 />} />
-        <Route path="buybook2" element={<BuyPage2 />} />
-        <Route path="buybook3" element={<BuyPage3 />} />
+        <Route path="celebdetail/:id" element={<CelebDetailPage />} />
+        <Route path="bookdetail/:id" element={<BookDetailPage />} />
+        <Route path="buybook/:id" element={<BuyPage1 />} />
+        <Route path="buybook2/:id" element={<BuyPage2 />} />
+        <Route path="buybook3/:id" element={<BuyPage3 />} />
       </Route>
     </ReactRouters>
   );

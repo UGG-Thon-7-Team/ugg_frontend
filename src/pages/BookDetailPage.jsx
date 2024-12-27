@@ -1,31 +1,46 @@
 import { MdNavigateBefore } from "react-icons/md";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import useCustomFetch from '../api/useCustomFetch';
+import { useState, useEffect } from "react";
 
 export default function BookDetailPage() {
+    const location = useLocation();
     const navigate = useNavigate();
+    const { book } = location.state || {};
+    const [datas, setDatas] = useState([]);
+    const data = useCustomFetch(`book/${book.bookId}`)
+    console.log('data',data.data)
+    useEffect(() => {
+        if (data?.data) {
+            console.log('data', data.data);
+            setDatas(data.data); // 데이터가 유효하면 상태 업데이트
+        }
+    }, [data]);
     return (
       <>
         <Container>
-            <PrevBtn onClick={()=>navigate('/celebdetail')}><MdNavigateBefore /></PrevBtn>
-            <Div></Div>
+            <PrevBtn onClick={()=>navigate(`/celebdetail/${book.bookId}`)}><MdNavigateBefore /></PrevBtn>
+            <Div src={book.imageUrl} alt={book.id} />
             <BookInfo>
-                <Title>요절</Title>
-                <div>조용훈</div>
-                <div>평점 4.2점</div>
+                <Title>{book.title}</Title>
+                <div>{datas.author}</div> 
+                
+                <div>평점 {book.rating}</div>
                 <SummaryWrapper>
                     <div>책소개</div>
                     <SummaryBox>
-                        <div>이탈리아 말라파르테 문학상 수상작. 한강의 여섯번째 장편소설. '상처의 구조에 대한 투시와 천착의 서사'를 통해 한강만이 풀어낼 수 있는 방식으로 1980년 5월을 새롭게 조명한다. 한강은 무고한 영혼들의 말을 대신 전하는 듯한 진심 어린 문장들로 어느덧 그 시절을 잊고 무심하게 5.18 이후를 살고 있는 우리에게 묵직한 질문을 던지고, 여전히 5.18의 트라우마를 안고 힘겹게 살아가는 사람들을 위무한다.이탈리아 말라파르테 문학상 수상작. 한강의 여섯번째 장편소설. '상처의 구조에 대한 투시와 천착의 서사'를 통해 한강만이 풀어낼 수 있는 방식으로 1980년 5월을 새롭게 조명한다. 한강은 무고한 영혼들의 말을 대신 전하는 듯한 진심 어린 문장들로 어느덧 그 시절을 잊고 무심하게 5.18 이후를 살고 있는 우리에게 묵직한 질문을 던지고, 여전히 5.18의 트라우마를 안고 힘겹게 살아가는 사람들을 위무한다.sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss</div>
+                    <div>{datas.description}</div>
                     </SummaryBox>
                 </SummaryWrapper>
             </BookInfo>
-            <FinishBtn onClick={()=>navigate('/buybook')}>완독하기</FinishBtn>
+            <FinishBtn onClick={() => navigate(`/buybook/:${book.bookId}`, { state: { data: data.data } })}>완독하기</FinishBtn>
         </Container>
       </>
     );
   }
-  
+{/* <div>{data.data.author}</div> */}
+{/* <div>{data.data.description}</div> */}
 const Container = styled.div`
     
 `;
@@ -35,11 +50,10 @@ const PrevBtn = styled.div`
     top:20px;
     left:10px;
 `;
-const Div = styled.div`
+const Div = styled.img`
     width:190px;
     height:270px;
     border-radius:8px;
-    background-color:gray;
     margin:0 auto;
     margin-top:100px;
 `;
@@ -57,14 +71,12 @@ const Title = styled.div`
 const SummaryWrapper = styled.div`
     margin-top:40px;
     height:200px;    
-    border:1px solid red;
 `;
 const SummaryBox = styled.div`
     margin-top:5px;
     flex-wrap:wrap;
     overflow-y:auto;
     height:180px;    
-    border:1px solid blue;
 `;
 const FinishBtn = styled.button`
     position:fixed;
@@ -74,6 +86,6 @@ const FinishBtn = styled.button`
     top:725px;
     width:100px;
     height:40px;
-    background-color:#1CBBFF;
+    background-color:#A5D6A7;
     border-radius:8px;
 `;  
