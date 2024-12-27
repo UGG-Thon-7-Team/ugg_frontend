@@ -1,0 +1,16 @@
+.navWrapper {
+  position: fixed;
+  bottom: 5px;
+  height: 60px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 70px;
+  z-index: 1;
+}
+
+.navItem {
+  width: 50px;
+  text-align: center;
+  font-size: 1.6rem;
+}
