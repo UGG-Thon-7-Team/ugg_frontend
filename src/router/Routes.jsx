@@ -6,6 +6,7 @@ import LibraryPage from '@pages/LibraryPage';
 import MainLayout from '@layouts/MainLayout';
 import CelebDetailPage from '../pages/CelebDetailPage';
 import BookDetailPage from '../pages/BookDetailPage'
+import BuyPage1 from '../pages/BuyPage1'
 
 export default function Routes() {
   return (
@@ -17,6 +18,7 @@ export default function Routes() {
         <Route path="library" element={<LibraryPage />} />
         <Route path="celebdetail" element={<CelebDetailPage />} />
         <Route path="bookdetail" element={<BookDetailPage />} />
+        <Route path="buybook" element={<BuyPage1 />} />
       </Route>
     </ReactRouters>
   );
