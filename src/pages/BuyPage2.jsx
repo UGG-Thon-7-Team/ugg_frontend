@@ -1,10 +1,12 @@
 import { MdNavigateBefore } from "react-icons/md";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 export default function BuyPage2() {
-  const navigate = useNavigate();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const { data } = location.state || {};
   const [modalOpened, setModalOpened] = useState(false);
 
   useEffect(() => {
@@ -18,8 +20,12 @@ export default function BuyPage2() {
   }, [modalOpened]);
 
   const handleOpenModal = () => setModalOpened(true);
-  const handleCloseModal = () => setModalOpened(false);
-
+  const handleCloseModal = () => {
+    setModalOpened(false);
+    navigate('/')
+  }
+  const [deposit, setDeposit] = useState("");
+  const totalPrice = data.price + (Number(deposit) || 0);
   return (
     <>
       {modalOpened && <Shadow />}
@@ -27,29 +33,30 @@ export default function BuyPage2() {
         <PrevBtn onClick={() => navigate("/buybook")}>
           <MdNavigateBefore />
         </PrevBtn>
-        <Div></Div>
+        <Div src={data.imageUrl} alt={data.id} />
         <BookInfo>
-          <Title>요절</Title>
-          <div>조용훈</div>
-          <div>평점 4.2점</div>
+            <Title>{data.title}</Title>
+            <div>{data.author}</div>
+            <div>평점 {data.rating}</div>
         </BookInfo>
       </Container>
       <DepositBox>
         <div>완독 보증금</div>
-        <Input placeholder="보증금을 입력해주세요"></Input>
+        <Input placeholder="보증금을 입력해주세요" value={deposit}
+          onChange={(e) => setDeposit(e.target.value)} ></Input>
         <Won>원</Won>
         <Least>최소 1만원 이상</Least>
       </DepositBox>
       <PayBox>
-        <div>책가격 100,000원</div>
-        <div>총 120,000원</div>
+        <div>책가격 {data.price}</div>
+        <div>총 {totalPrice}원</div>
       </PayBox>
       <RefundMent>완독하시면 보증금을 환급해드립니다!</RefundMent>
       {/* onClick에서 상태 변경 함수를 호출하도록 수정 */}
       <Button onClick={handleOpenModal}>충전하기</Button>
       {modalOpened && (
         <MContainer>
-          <MDiv></MDiv>
+            <Div src={data.imageUrl} alt={data.id} />
           <div>내 서재에 등록되었습니다!</div>
           <div>완독하시고 보증금을 환급받아 보세요!</div>
           {/* onClick에서 상태 변경 함수를 호출하도록 수정 */}
@@ -80,7 +87,7 @@ const PrevBtn = styled.div`
     top:20px;
     left:10px;
 `;
-const Div = styled.div`
+const Div = styled.img`
     width:150px;
     height:200px;
     border-radius:8px;
@@ -136,7 +143,7 @@ const Button = styled.div`
     color:white;
     font-weight:600;
     font-size:16px;
-    background-color:black;
+    background-color:#A5D6A7;
     border-radius:100px;
     width:300px;
     height:60px;
@@ -150,29 +157,23 @@ const MContainer = styled.div`
     align-items: center; 
     width:300px;
     height:400px;
-    border:1px solid red;
     position:fixed;
     top:30%;
     background-color:white;
+    gap:10px;
     *{
         color:black;
+        margin-top:10px;
     }
 `;
-const MDiv = styled.div`
-    margin-top:20px;
-    margin-bottom:20px;
-    width:150px;
-    height:200px;
-    border-radius:8px;
-    background-color:gray;
-`;
+
 const MButton = styled.button`
     position:fixed;
     top:550px;
     color:white;
     font-weight:600;
     font-size:16px;
-    background-color:black;
+    background-color:#A5D6A7;
     border-radius:100px;
     width:200px;
     height:45px;

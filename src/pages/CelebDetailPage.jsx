@@ -1,63 +1,28 @@
 import { MdNavigateBefore } from "react-icons/md";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function CelebDetailPage() {
+    const location = useLocation();
     const navigate = useNavigate();
+    const { celeb } = location.state || {};
+    console.log('celeb',celeb);
     return (
       <>
         <PrevBtn onClick={()=>navigate('/')}><MdNavigateBefore /></PrevBtn>
-        <CelebName>ㅇㅇ님이 이런 책을 추천해요</CelebName>
+        <CelebName>{celeb.celebritiesName}님이 이런 책을 추천해요</CelebName>
         <VerticalLine></VerticalLine>
         <BookWrapper>
-            <BookInfo>
-                <Div></Div>
-                <InfoBox>
-                    <div>제목 요절</div>
-                    <div>조용훈</div>
-                    <div>평점 4.2점</div>
-                </InfoBox>
-            </BookInfo>
-            <BookInfo>
-                <Div></Div>
-                <InfoBox>
-                    <div>제목 요절</div>
-                    <div>조용훈</div>
-                    <div>평점 4.2점</div>
-                </InfoBox>
-            </BookInfo>
-            <BookInfo>
-                <Div></Div>
-                <InfoBox>
-                    <div>제목 요절</div>
-                    <div>조용훈</div>
-                    <div>평점 4.2점</div>
-                </InfoBox>
-            </BookInfo>
-            <BookInfo>
-                <Div></Div>
-                <InfoBox>
-                    <div>제목 요절</div>
-                    <div>조용훈</div>
-                    <div>평점 4.2점</div>
-                </InfoBox>
-            </BookInfo>
-            <BookInfo>
-                <Div></Div>
-                <InfoBox>
-                    <div>제목 요절</div>
-                    <div>조용훈</div>
-                    <div>평점 4.2점</div>
-                </InfoBox>
-            </BookInfo>
-            <BookInfo>
-                <Div></Div>
-                <InfoBox>
-                    <div>제목 요절</div>
-                    <div>조용훈</div>
-                    <div>평점 4.2점</div>
-                </InfoBox>
-            </BookInfo>
+            {celeb?.books?.map((book) => (
+                <BookInfo key={book.id}> {/* BookInfo에 key를 추가 */}
+                    <Div src={book.imageUrl} alt={book.id} onClick={() => navigate(`/bookdetail/${book.bookId}`,{ state: { book } })}/>
+                    <InfoBox>
+                        <div>{book.title}</div>
+                        <div>{book.rating}</div>
+                        <div></div>
+                    </InfoBox>
+                </BookInfo>  
+            ))}                   
         </BookWrapper>
       </>
     );
@@ -90,7 +55,6 @@ export default function CelebDetailPage() {
     left:0px;
     width:100%;
     height:75%;
-    border:1px solid red;
     flex-wrap:wrap;
     overflow-y:auto;
     gap:30px;
@@ -104,7 +68,6 @@ export default function CelebDetailPage() {
     display:flex;
     flex-direction: column;
     align-items: center; 
-    border:1px solid blue;
     position:relative;
     top:0px;
   `;
@@ -117,12 +80,10 @@ export default function CelebDetailPage() {
     align-items: center;    
     position:relative;
     top:50px;
-    border:1px solid green;
   `;
-  const Div = styled.div`
+  const Div = styled.img`
     width:100px;
     height:150px;
     border-radius:8px;
-    background-color:gray;
     margin-bottom:-50px;
 `;
