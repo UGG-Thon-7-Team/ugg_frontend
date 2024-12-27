@@ -30,7 +30,6 @@ const SubSwiper = ({ children }) => {
 
   return (
     <Container>
-      <Button onClick={handlePrev}>{"<"}</Button>
       <Swiper
         modules={[Navigation]} // Navigation 모듈 추가
         spaceBetween={10} // 슬라이드 간 간격
@@ -38,10 +37,11 @@ const SubSwiper = ({ children }) => {
         slidesPerGroup={1} // 한 번에 하나의 슬라이드씩 이동
         loop={true} // 끝까지 스와이프하면 처음으로 돌아감
         onSwiper={(swiper) => (swiperRef.current = swiper)} // swiper 인스턴스를 참조
+        touchStartPreventDefault={true} // 터치 시작 시 기본 동작 막기
+        touchMoveStopPropagation={true} // 터치 이동 중 화면 스크롤 방지
       >
         {children}
       </Swiper>
-      <Button onClick={handleNext}>{">"}</Button>
     </Container>
   );
 };
