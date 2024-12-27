@@ -1,54 +1,42 @@
 import styled from "styled-components";
-import SubSwiper from "../slider/Swiper";
 import { SwiperSlide } from "swiper/react";
+import PropTypes from 'prop-types';
+import { useNavigate } from "react-router-dom";
 
-const subData = {
-    results: [
-      { id: 1, title: "책 1" },
-      { id: 2, title: "책 2"},
-      { id: 3, title: "책 3"},
-      { id: 4, title: "책 4" },
-      { id: 5, title: "책 5"},
-      { id: 1, title: "책 6" },
-      { id: 2, title: "책 7"},
-      { id: 3, title: "책 8"},
-      { id: 4, title: "책 9" },
-      { id: 5, title: "책 10"},
-      { id: 1, title: "책 11" },
-      { id: 2, title: "책 12"},
-      { id: 3, title: "책 13"},
-      { id: 4, title: "책 14" },
-      { id: 5, title: "책 15"},
-    ],
-  };
-const RecommendBox =()=>{
+const RecommendBox =({celeb})=>{
+    console.log('celeb',celeb)
+    const navigate = useNavigate();
+    if (!celeb) {
+        return <div>Loading...</div>;  // 또는 적절한 처리
+      }
     return(
         <>
-            <Container>
-                <Recommender>@@님이 이런 책을 추천해요</Recommender>
+            <Container onClick={() => navigate(`/celebdetail/${celeb.celebritiesName}`,{ state: { celeb } })} >
+                <Recommender>{celeb.celebritiesName}님이 이런 책을 추천해요</Recommender>
                 <SubWrapper>
-                    {subData?.results?.length >= 3 ? (
-                        <SubSwiper>
-                            {subData?.results?.map((book) => (
-                                <SwiperSlide key={book.id}>
-                                        <Div>{book.title}</Div>
-                                </SwiperSlide>
-                            ))}
-                        </SubSwiper>
-                    ) : (
-                        subData?.results?.map((book) => (
-                            <Div key={book.id}>{book.title}</Div>
-                          ))
-                    )}
-                </SubWrapper>
+    {celeb?.books?.slice(0, 3).map((book) => ( // 첫 3개만 가져오기
+        <Div key={book.id} src={book.imageUrl} alt={book.id} />
+    ))}
+</SubWrapper>
+
             </Container>
         </>
     )
 }
+RecommendBox.propTypes = {
+    celeb: PropTypes.shape({
+      celebritiesName: PropTypes.string.isRequired,
+      books: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.string.isRequired, // book id 필드가 있어야 함
+          title: PropTypes.string.isRequired, // book title 필드가 있어야 함
+        })
+      ).isRequired,
+    }).isRequired,
+  };
 export default RecommendBox;
 
 const Container = styled.div`
-    border:1px solid blue;
     height: 160px;
     display: flex;
     flex-direction: column;
@@ -61,18 +49,18 @@ const Recommender = styled.div`
 `;
 const SubWrapper = styled.div`
     margin-top:10px;
-    border:1px solid green;
     width:100%;
+    display: flex;
+        gap:10px;
     *{
         display: flex;
         gap:5px;
     }
 `;
-const Div = styled.div`
+const Div = styled.img`
     width:90px;
     height:111px;
     border-radius:8px;
-    background-color:gray;
 `;
 
 // const Img=styled.img`
