@@ -20,7 +20,7 @@ export default function BookDetailPage() {
                     </SummaryBox>
                 </SummaryWrapper>
             </BookInfo>
-            <FinishBtn>완독하기</FinishBtn>
+            <FinishBtn onClick={()=>navigate('/buybook')}>완독하기</FinishBtn>
         </Container>
       </>
     );
