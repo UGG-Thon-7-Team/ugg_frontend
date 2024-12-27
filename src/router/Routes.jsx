@@ -3,6 +3,7 @@ import { Routes as ReactRouters, Route } from 'react-router-dom';
 import HomePage from '@pages/HomePage';
 import SearchPage from '@pages/SearchPage';
 import LibraryPage from '@pages/LibraryPage';
+import CertificationPage from '@pages/CertificationPage';
 import MainLayout from '@layouts/MainLayout';
 
 export default function Routes() {
@@ -12,7 +13,9 @@ export default function Routes() {
       <Route path="/" element={<MainLayout />}>
         <Route index={true} element={<HomePage />} />
         <Route path="search" element={<SearchPage />} />
+        {/* 내 서재 */}
         <Route path="library" element={<LibraryPage />} />
+        <Route path="library/certification" element={<CertificationPage />} />
       </Route>
     </ReactRouters>
   );

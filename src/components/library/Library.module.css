@@ -1,0 +1,57 @@
+.header {
+  width: 100%;
+  height: 50px;
+  position: relative;
+  margin-top: 20px;
+}
+
+.arrow {
+  margin-top: 15px;
+  position: absolute;
+}
+
+.headertitle {
+  position: absolute; 
+  top: 50%;
+  left: 50%; 
+  transform: translate(-50%, -50%); 
+  text-align: center;
+  font-size: 1.6rem; 
+  font-weight: 500;
+}
+
+.booksdiv {
+  padding-top: 20px;
+  padding-bottom: 50px;
+}
+
+.bookdiv {
+  display: flex;
+  height: 200px;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 20px;
+}
+
+.bookimg {
+  height: 200px;
+  border-radius: 10px;
+}
+
+.bookcontent {
+  width: 150px;
+  font-size: 1.6rem;
+  font-weight: 500;
+  position: relative;
+}
+
+.bookbutton {
+  position: absolute;
+  bottom: 0;
+  width: 150px;
+  height: 35px;
+  color: var(--main-bg-color);
+  background-color: var(--accent-color);
+  font-weight: 300;
+  border-radius: 10px;
+}
